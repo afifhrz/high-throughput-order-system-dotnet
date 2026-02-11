@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/LedgerFlow/LedgerFlow.API/obj
+/src/LedgerFlow/LedgerFlow.Domain/obj
+/src/LedgerFlow/LedgerFlow.Infrastructure/obj
+/src/LedgerFlow/LedgerFlow.API/bin
+/src/LedgerFlow/.vs
+/src/LedgerFlow/LedgerFlow.Domain/bin
+/src/LedgerFlow/LedgerFlow.Infrastructure/bin
+/src/LedgerFlow/.github/copilot-instructions.md
+/.vs
+/src/LedgerFlow/LedgerFlow.Migrations/bin/Debug/net10.0
+/src/LedgerFlow/LedgerFlow.Migrations/obj
