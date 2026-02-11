@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="LedgerFlow.API/LedgerFlow.API.csproj" />
+  <Project Path="LedgerFlow.Domain/LedgerFlow.Domain.csproj" />
+  <Project Path="LedgerFlow.Infrastructure/LedgerFlow.Infrastructure.csproj" />
+  <Project Path="LedgerFlow.Migrations/LedgerFlow.Migrations.csproj" Id="1a3f0c05-6ea0-4040-912d-149fd8de7900" />
+</Solution>
