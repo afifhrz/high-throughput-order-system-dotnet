@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: fintech-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: fintech
+      MYSQL_USER: fintech_user
+      MYSQL_PASSWORD: fintech_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --transaction-isolation=READ-COMMITTED
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+    container_name: fintech-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  migrate:
+    container_name: fintech-migrate
+    build:
+      context: ../src
+      dockerfile: LedgerFlow/LedgerFlow.Migrations/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Docker
+    restart: "no"
+    depends_on:
+      - mysql
+  
+  api:
+    container_name: fintech-api
+    build:
+      context: ../src
+      dockerfile: LedgerFlow/LedgerFlow.Api/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker
+      ConnectionStrings__MySql: "Server=mysql;Port=3306;Database=fintech;User=fintech_user;Password=fintech_pass"
+      Redis__ConnectionString: "redis:6379"
+    depends_on:
+      - mysql
+      - redis
+
+volumes:
+  mysql_data:

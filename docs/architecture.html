@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <title>Architecture - HTOS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-link">BE</a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a class="nav-link" href="index.html">About</a></li>
+                <li><a class="nav-link" href="tradeoffs.html">Tradeoffs</a></li>
+                <li><a class="nav-link" href="scaling.html">Scaling</a></li>
+                <li><a class="nav-link" href="failure-mode.html">Failure Modes</a></li>
+                <li><a class="nav-link" href="fintech-notes.html">Fintech Notes</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero projects-hero">
+        <div class="hero-content">
+            <h1>Architecture</h1>
+            <p class="subtitle"></p>
+        </div>
+        <div class="hero-decoration"></div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="projects-grid detailed">
+                <div class="project-card-large">
+                    <div class="project-card-header">
+                        <div>
+                            <h2>HTOS: High-Throughput Payment System</h2>
+                            <p class="project-subtitle">Financial-grade payment processing with ACID compliance and fraud prevention</p>
+                        </div>
+                    </div>
+
+                    <div class="project-overview">
+                        <div class="overview-item">
+                            <h4>Purpose</h4>
+                            <p>High-throughput payment processing API guaranteeing transactional integrity, idempotency, and double-spend prevention for financial systems.</p>
+                        </div>
+                        <div class="overview-item">
+                            <h4>Key Metrics</h4>
+                            <p><strong>Target Throughput:</strong> Millions of transactions per day • <strong>Latency:</strong> Sub-second processing • <strong>Reliability:</strong> ACID compliance with strong transactional integrity</p>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h3>Architecture Overview</h3>
+                        <p>HTOS uses a multi-layered architecture designed for correctness and scalability:</p>
+                        <ul class="architecture-list">
+                            <li><strong>API Layer:</strong> ASP.NET Core Web API handling payment endpoints, validation, and orchestration</li>
+                            <li><strong>Database Layer:</strong> MySQL 8 with ACID transactions and row-level locking for data consistency</li>
+                            <li><strong>Cache Layer:</strong> Redis 7 for high-speed idempotency key lookups and future rate limiting</li>
+                            <li><strong>Domain Layer:</strong> Clean domain entities, enums, and exception handling for business logic</li>
+                            <li><strong>Infrastructure:</strong> Repository pattern, EF Core 9 migrations, and automated database seeding</li>
+                        </ul>
+                    </div>
+
+                    <div class="architecture-diagram">
+                        <pre><code>Client Request
+    │
+    ▼
+┌─────────────────────────────┐
+│  ASP.NET Core API Layer     │
+│ ├─ Validation               │
+│ ├─ Idempotency Check        │
+│ └─ Payment Orchestration    │
+└──────────┬──────────────────┘
+           │
+    ┌──────┴──────┐
+    │             │
+    ▼             ▼
+┌─────────┐   ┌─────────┐
+│ MySQL   │   │ Redis   │
+│ ACID TX │   │ Cache   │
+│ Tables  │   │ Keys    │
+└─────────┘   └─────────┘</code></pre>
+                    </div>
+
+                    <div class="project-section">
+                        <h3>Core Responsibilities</h3>
+                        <div class="responsibility-grid">
+                            <div class="responsibility-card">
+                                <h4>API Layer</h4>
+                                <p>Request validation, authentication, idempotency handling, payment orchestration, structured logging and telemetry</p>
+                            </div>
+                            <div class="responsibility-card">
+                                <h4>MySQL Database</h4>
+                                <p>ACID transactions with READ COMMITTED isolation, row-level locking, balance consistency checks, and ledger entries</p>
+                            </div>
+                            <div class="responsibility-card">
+                                <h4>Redis Cache</h4>
+                                <p>O(1) idempotency key lookups, prevents duplicate transactions during retry storms, reduces DB contention</p>
+                            </div>
+                            <div class="responsibility-card">
+                                <h4>Domain Layer</h4>
+                                <p>Business rule enforcement, entity integrity validation, domain exceptions, and type-safe payment operations</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h3>Double-Spend Prevention</h3>
+                        <p>Prevents unauthorized duplicate charges through atomic database transactions:</p>
+                        <ol class="process-list">
+                            <li>Account row is selected with pessimistic locking</li>
+                            <li>Current balance is validated against transaction amount</li>
+                            <li>Balance is decremented atomically</li>
+                            <li>Ledger entries are recorded for audit trails</li>
+                            <li>Payment transaction status is recorded</li>
+                            <li>If any step fails → entire transaction rolls back (no partial updates)</li>
+                        </ol>
+                    </div>
+
+                    <div class="project-section">
+                        <h3>Idempotency Pattern</h3>
+                        <p>Ensures same result for duplicate requests, critical for network reliability:</p>
+                        <ol class="process-list">
+                            <li>Client sends <code>Idempotency-Key</code> header with unique GUID</li>
+                            <li>API checks Redis for existing key (O(1) lookup)</li>
+                            <li>If found → return cached response immediately (duplicate detected)</li>
+                            <li>If not found:</li>
+                            <li style="margin-left: 1.5rem;">Process payment within atomic database transaction</li>
+                            <li style="margin-left: 1.5rem;">Store response in Redis with 24-hour TTL</li>
+                            <li style="margin-left: 1.5rem;">Return result to client</li>
+                        </ol>
+                    </div>
+
+                    <div class="project-section">
+                        <h3>Technology Stack</h3>
+                        <div class="tech-stack">
+                            <div class="tech-category">
+                                <h4>Backend</h4>
+                                <ul>
+                                    <li>.NET 10</li>
+                                    <li>ASP.NET Core Web API</li>
+                                    <li>Entity Framework Core 9</li>
+                                </ul>
+                            </div>
+                            <div class="tech-category">
+                                <h4>Data</h4>
+                                <ul>
+                                    <li>MySQL 8</li>
+                                    <li>Redis 7</li>
+                                </ul>
+                            </div>
+                            <div class="tech-category">
+                                <h4>DevOps</h4>
+                                <ul>
+                                    <li>Docker</li>
+                                    <li>Docker Compose</li>
+                                </ul>
+                            </div>
+                            <div class="tech-category">
+                                <h4>Observability</h4>
+                                <ul>
+                                    <li>Serilog</li>
+                                    <li>Structured Logging</li>
+                                    <li>Metrics</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h3>Engineering Decisions</h3>
+                        <div class="decisions-grid">
+                            <div class="decision-card">
+                                <h4>MySQL for ACID</h4>
+                                <p>Selected for strong transactional guarantees, row-level locking, and proven reliability in financial systems.</p>
+                            </div>
+                            <div class="decision-card">
+                                <h4>Redis for Speed</h4>
+                                <p>Provides O(1) idempotency lookups and drastically reduces database contention under high-volume retry scenarios.</p>
+                            </div>
+                            <div class="decision-card">
+                                <h4>Pessimistic Locking</h4>
+                                <p>Guarantees absolute correctness by preventing concurrent modifications to the same account during processing.</p>
+                            </div>
+                            <div class="decision-card">
+                                <h4>Domain-Driven Design</h4>
+                                <p>Encapsulates business rules within domain entities, making payment logic clear, testable, and maintainable.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h3>Scalability Considerations</h3>
+                        <p>While the current architecture is robust, here are identified bottlenecks and mitigation strategies:</p>
+                        <div class="bottlenecks">
+                            <div class="bottleneck-item">
+                                <h4>MySQL Row Locks</h4>
+                                <p><strong>Issue:</strong> Heavy concurrent writes to same account cause lock contention</p>
+                                <p><strong>Mitigation:</strong> Horizontal scaling via read replicas, query optimization, and potentially distributed transaction coordinators</p>
+                            </div>
+                            <div class="bottleneck-item">
+                                <h4>Redis Memory</h4>
+                                <p><strong>Issue:</strong> Unbounded idempotency key storage can exhaust memory</p>
+                                <p><strong>Mitigation:</strong> Configurable TTL policies, automatic eviction strategies, and memory monitoring</p>
+                            </div>
+                            <div class="bottleneck-item">
+                                <h4>API Thread Pool</h4>
+                                <p><strong>Issue:</strong> Thread pool exhaustion under spike traffic without rate limiting</p>
+                                <p><strong>Mitigation:</strong> Implement rate limiting (ready with Redis), circuit breakers, and async/await patterns</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h3>Key Takeaways</h3>
+                        <ul class="takeaways-list">
+                            <li>Transactional integrity is paramount in financial systems - sacrificed performance for correctness</li>
+                            <li>Idempotency is essential for handling network unreliability at scale</li>
+                            <li>Smart caching (Redis) dramatically improves performance without sacrificing correctness</li>
+                            <li>Domain-driven design makes complex business logic understandable and maintainable</li>
+                            <li>Plan for bottlenecks early - design with horizontal scaling in mind from day one</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-tags">
+                        <span class="tag">.NET 10</span>
+                        <span class="tag">ASP.NET Core</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Redis</span>
+                        <span class="tag">ACID</span>
+                        <span class="tag">Payment Processing</span>
+                        <span class="tag">Distributed Systems</span>
+                        <span class="tag">Docker</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Developed by <strong>Ahmad Afif Aulia Hariz</strong>, Software Engineer at <strong>HRZ Indonesia | IT Solutions</strong></p>
+            <p>&copy; 2026 High Throughput Order System Documentation</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
