@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tradeoffs - HTOS</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="nav-logo"><a href="index.html">HTOS</a></div>
+            <div class="hamburger" id="hamburger-trade">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="nav-menu-trade">
+                <li><a class="nav-link" href="index.html">About</a></li>
+                <li><a class="nav-link" href="architecture.html">Architecture</a></li>
+                <li><a class="nav-link" href="scaling.html">Scaling</a></li>
+                <li><a class="nav-link" href="failure-mode.html">Failure Modes</a></li>
+                <li><a class="nav-link" href="fintech-notes.html">Fintech Notes</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero projects-hero">
+        <div class="hero-content">
+            <h1>Tradeoffs</h1>
+            <p class="subtitle">Design constraints change what`s best. Below are key tradeoffs and the choices made for HTOS.</p>
+        </div>
+        <div class="hero-decoration"></div>
+    </section>
+    
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="projects-grid detailed">
+                <div class="project-card-large">
+                    <div class="project-section">
+                        <h3>Event store vs relational source-of-truth</h3>
+                        <ul class="architecture-list">
+                            <li><strong>Event store:</strong> auditability and replay; more complexity for queries.</li>
+                            <li><strong>Relational DB:</strong> straightforward queries and ACID; harder to rebuild state without events.</li>
+                            <li><strong>Choice:</strong> primary relational state + event bus for replay/analytics.</li>
+                        </ul>
+                    </div>
+                    <div class="project-section">
+                        <h3>Consistency vs availability</h3>
+                        <ul class="architecture-list">
+                            <li>Strong consistency is simpler but reduces availability under partitions.</li>
+                            <li>Eventual consistency improves availability but adds conflict handling.</li>
+                            <li>Choice: consistent writes for authoritative order state; eventual consistency for derived views.</li>
+                        </ul>
+                    </div>
+                    <div class="project-section">
+                        <h3>Monolith vs microservices</h3>
+                        <ul class="architecture-list">
+                            <li>Monolith: easier initially; harder to scale fine-grained components.</li>
+                            <li>Microservices: independent scaling at the cost of operational complexity.</li>
+                            <li>Choice: modular services with clear message contracts.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>Developed by <strong>Ahmad Afif Aulia Hariz</strong>, Software Engineer at <strong>HRZ Indonesia | IT Solutions</strong></p>
+            <p>&copy; 2026 High Throughput Order System Documentation</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

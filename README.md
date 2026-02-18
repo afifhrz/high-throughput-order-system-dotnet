@@ -35,6 +35,7 @@ This project simulates a simplified payment gateway where:
 
 ## Architecture Overview
 
+```
 Client
 │
 ▼
@@ -48,6 +49,7 @@ ASP.NET Core API
 └── Redis
 ├── Idempotency Keys
 └── Rate limiting (future extension)
+```
 
 ---
 
@@ -138,6 +140,7 @@ Mitigation strategies:
 
 ## 📂 Project Structure
 
+```
 /src
 	/LedgerFlow
 		/LedgerFlow.Api
@@ -166,12 +169,13 @@ Mitigation strategies:
 	tradeoffs.html
 	scaling.html
 	tradeoffs.html
+```
 
 ---
 
 ## 🛠 Tech Stack
 
-- .NET 9
+- .NET 10
 - ASP.NET Core Web API
 - Entity Framework Core 9
 - MySQL 8
@@ -256,4 +260,5 @@ Future improvements:
 ## Author
 
 Ahmad Afif Aulia Hariz
+
 Software Engineer – Distributed Systems & Fintech Simulation

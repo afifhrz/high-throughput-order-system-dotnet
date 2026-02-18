@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Scaling - HTOS</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="nav-logo"><a href="index.html">HTOS</a></div>
+            <div class="hamburger" id="hamburger-scale">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="nav-menu-trade">
+                <li><a class="nav-link" href="index.html">About</a></li>
+                <li><a class="nav-link" href="architecture.html">Architecture</a></li>
+                <li><a class="nav-link" href="tradeoffs.html">Tradeoffs</a></li>
+                <li><a class="nav-link" href="failure-mode.html">Failure Modes</a></li>
+                <li><a class="nav-link" href="fintech-notes.html">Fintech Notes</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero projects-hero">
+        <div class="hero-content">
+            <h1>Scaling Strategy</h1>
+            <p class="subtitle">Horizontal scaling, event streaming, and load management patterns for high-throughput systems</p>
+        </div>
+        <div class="hero-decoration"></div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="projects-grid detailed">
+                <div class="project-card-large">
+                    <div class="project-section">
+                        <h3>Horizontal patterns</h3>
+                        <ul class="architecture-list">
+                            <li>Stateless services: scale out behind load balancers; autoscale on request rate and CPU.</li>
+                            <li>Stateful services: shard by business key (instrument/account); leader/follower for reads.</li>
+                        </ul>
+                    </div>
+                    <div class="project-section">
+                        <h3>Event streaming</h3>
+                        <ul class="architecture-list">
+                            <li>Partition topics by natural shard key; ensure partitions match throughput.</li>
+                            <li>Consumers bind to partitions and scale with lag metrics.</li>
+                        </ul>
+                    </div>
+                    <div class="project-section">
+                        <h3>Load Management</h3>
+                        <ul class="architecture-list">
+                            <li>Bounded queues, circuit-breakers, and prioritized handling for overload.</li>
+                            <li>Co-locate processing for a shard to minimize cross-shard coordination.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>Developed by <strong>Ahmad Afif Aulia Hariz</strong>, Software Engineer at <strong>HRZ Indonesia | IT Solutions</strong></p>
+            <p>&copy; 2026 High Throughput Order System Documentation</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fintech Notes - HTOS</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="nav-logo"><a href="index.html">HTOS</a></div>
+            <div class="hamburger" id="hamburger-fin">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="nav-menu-trade">
+                <li><a class="nav-link" href="index.html">About</a></li>
+                <li><a class="nav-link" href="architecture.html">Architecture</a></li>
+                <li><a class="nav-link" href="tradeoffs.html">Tradeoffs</a></li>
+                <li><a class="nav-link" href="scaling.html">Scaling</a></li>
+                <li><a class="nav-link" href="failure-mode.html">Failure Mode</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero projects-hero">
+        <div class="hero-content">
+            <h1>Fintech Notes</h1>
+            <p class="subtitle">Key considerations for financial systems: regulatory compliance, correctness, security, and money handling best practices.</p>
+        </div>
+        <div class="hero-decoration"></div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="projects-grid detailed">
+                <div class="project-card-large">
+                    <div class="project-section">
+                        <h3>Regulatory & correctness</h3>
+                        <ul class="architecture-list">
+                            <li>Auditability: append-only event logs and immutable audit records.</li>
+                            <li>Reconciliation: periodic jobs and operational alerts for mismatches.</li>
+                            <li>Timekeeping: synchronized clocks, UTC timestamps, monotonic sequence numbers.</li>
+                        </ul>
+                    </div>
+                    <div class="project-section">
+                        <h3>Financial primitives & guarantees</h3>
+                        <ul class="architecture-list">
+                            <li>Idempotency keys for client retries; server-side idempotency store.</li>
+                            <li>Atomic fills: ensure order state and ledger entries commit together.</li>
+                            <li>Money: use integer minor units (cents), not floating point.</li>
+                        </ul>
+                    </div>
+                    <div class="project-section">
+                        <h3>Security & privacy</h3>
+                        <ul class="architecture-list">
+                            <li>Strong authN/authZ, encryption, PII redaction in logs, pen-testing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>Developed by <strong>Ahmad Afif Aulia Hariz</strong>, Software Engineer at <strong>HRZ Indonesia | IT Solutions</strong></p>
+            <p>&copy; 2026 High Throughput Order System Documentation</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
