@@ -8,12 +8,10 @@
     <meta name="author" content="Ahmad Afif Aulia Hariz" />
     <meta name="keywords" content="Ahmad Afif Aulia Hariz, Software Engineer, HRZ Indonesia, IT Solutions, High Throughput Order System, HTOS, Trading System, Order Management, Event-Driven Architecture" />
     
-    <!-- Open Graph / Social Media -->
     <meta property="og:title" content="High Throughput Order System - Ahmad Afif Aulia Hariz" />
     <meta property="og:description" content="Modular, event-driven order processing for low-latency, high-throughput trading by Software Engineer Ahmad Afif Aulia Hariz" />
     <meta property="og:type" content="website" />
     
-    <!-- Structured Data for SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -38,62 +36,64 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-container container">
-            <div class="nav-logo"><a href="index.html">HTOS</a></div>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-link">HTOS</a>
             </div>
-            <ul class="nav-menu" id="nav-menu">
+            <ul class="nav-menu" id="navMenu">
                 <li><a class="nav-link" href="architecture.html">Architecture</a></li>
                 <li><a class="nav-link" href="tradeoffs.html">Tradeoffs</a></li>
                 <li><a class="nav-link" href="scaling.html">Scaling</a></li>
                 <li><a class="nav-link" href="failure-mode.html">Failure Modes</a></li>
                 <li><a class="nav-link" href="fintech-notes.html">Fintech Notes</a></li>
             </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
-    <main>
-        <section class="hero">
-            <div class="hero-content container">
-                <h1>High Throughput Order System</h1>
-                <div class="tagline">Modular, event-driven order processing for low-latency, high-throughput trading</div>
-                <p class="subtitle">This docs hub highlights architecture, tradeoffs, scaling strategies, failure-mode planning, and fintech-specific considerations. Use the links below to explore the design and operational choices.</p>
-                <div class="cta-buttons">
-                    <a class="btn btn-primary" href="architecture.html">View Architecture</a>
-                    <a class="btn btn-secondary" href="scaling.html">Read Scaling</a>
-                </div>
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>High Throughput Order System</h1>
+            <div class="tagline">Modular, event-driven order processing for low-latency, high-throughput trading</div>
+            <p class="subtitle">This docs hub highlights architecture, tradeoffs, scaling strategies, failure-mode planning, and fintech-specific considerations. Use the links below to explore the design and operational choices.</p>
+            <div class="cta-buttons">
+                <a class="btn btn-primary" href="architecture.html">View Architecture</a>
+                <a class="btn btn-secondary" href="scaling.html">Read Scaling</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="projects" class="section">
-            <div class="container">
-                <div class="projects-grid detailed">
-                    <div class="project-card-large">
-                        <div class="project-section">
-                            <h3>Quick links</h3>
-                            <ul class="architecture-list">
-                                <li><a href="architecture.html"><strong>Architecture</strong></a> system overview and component responsibilities.</li>
-                                <li><a href="tradeoffs.html"><strong>Tradeoffs</strong></a> design decisions and compromises.</li>
-                                <li><a href="scaling.html"><strong>Scaling</strong></a> patterns for safe horizontal scale.</li>
-                                <li><a href="failure-mode.html"><strong>Failure Modes</strong></a> expected failures and mitigations.</li>
-                                <li><a href="fintech-notes.html"><strong>Fintech Notes</strong></a> regulatory and money-handling considerations.</li>
-                            </ul>
-                        </div>
-                        <div class="project-section">
-                            <h3>How to preview locally</h3>
-                            <div class="architecture-diagram">
-                                <pre><code>
-                                Install the .NET 10 SDK.
-                                dotnet run --project LedgerFlow.API;
-                            </code></pre>
-                            </div>
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="projects-grid detailed">
+                <div class="project-card-large">
+                    <div class="project-section">
+                        <h3>Quick links</h3>
+                        <ul class="architecture-list">
+                            <li><a href="architecture.html"><strong>Architecture</strong></a> system overview and component responsibilities.</li>
+                            <li><a href="tradeoffs.html"><strong>Tradeoffs</strong></a> design decisions and compromises.</li>
+                            <li><a href="scaling.html"><strong>Scaling</strong></a> patterns for safe horizontal scale.</li>
+                            <li><a href="failure-mode.html"><strong>Failure Modes</strong></a> expected failures and mitigations.</li>
+                            <li><a href="fintech-notes.html"><strong>Fintech Notes</strong></a> regulatory and money-handling considerations.</li>
+                        </ul>
+                    </div>
+                    <div class="project-section">
+                        <h3>How to preview locally</h3>
+                        <div class="architecture-diagram">
+                            <pre><code>
+                            Install the .NET 10 SDK.
+                            dotnet run --project LedgerFlow.API;
+                        </code></pre>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <footer class="footer">
         <div class="container">
